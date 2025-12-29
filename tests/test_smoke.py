@@ -1,2 +1,2 @@
 def test_app_imports():
-    import main
+    __import__("main")

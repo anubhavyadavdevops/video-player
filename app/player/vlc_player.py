@@ -1,6 +1,7 @@
 import vlc
 import sys
 
+
 class VLCPlayer:
     def __init__(self, video_path: str):
         self.instance = vlc.Instance()
