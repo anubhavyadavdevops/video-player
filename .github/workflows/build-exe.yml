@@ -5,14 +5,19 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write   # REQUIRED to create releases
+
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -24,11 +29,10 @@ jobs:
 
       - name: Build exe
         run: pyinstaller --onefile --windowed main.py
-        
-      - name: Create GitHub Release
+
+      - name: Create GitHub Release and upload exe
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
