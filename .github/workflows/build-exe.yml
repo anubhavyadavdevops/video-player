@@ -24,9 +24,11 @@ jobs:
 
       - name: Build exe
         run: pyinstaller --onefile --windowed main.py
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: video-player-exe
-          path: dist/*.exe
+          files: dist/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
