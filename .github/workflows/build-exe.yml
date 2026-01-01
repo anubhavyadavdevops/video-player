@@ -28,11 +28,14 @@ jobs:
           pip install pyinstaller
 
       - name: Build exe
-        run: pyinstaller --onefile --windowed main.py
+        run: |
+          pyinstaller --onefile --windowed main.py
+          pyinstaller --onefile --windowed --name "video-player-v$ver" main.py
 
       - name: Create GitHub Release and upload exe
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.exe
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
